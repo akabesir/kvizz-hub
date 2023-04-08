@@ -1,13 +1,27 @@
-import React from "react"
-import {Routes,Route} from 'react-router-dom'
-import Login from "./pages/Login"
 
+import React from 'react'
+import {Routes,Route,Router} from 'react-router-dom'
+import SignInSide from './pages/Login'
+import SignUpSide from './pages/Signup'
+import Home from './pages/Home'
+import { AuthProvider } from './contexts/AuthContext'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 function App() {
-
+  const theme = createTheme();
   return (
-    <Routes>
-      <Route path='/' element={<Login/>}></Route>
-    </Routes>
+   <div>
+     <ThemeProvider theme={theme}>
+    <AuthProvider>
+      <Routes>
+        
+        <Route path="/" element={<Home></Home>}/>
+        <Route path='/login' element={<SignInSide/>}></Route>
+        <Route path='/signup' element={<SignUpSide/>}></Route>
+        
+      </Routes>
+      </AuthProvider>
+      </ThemeProvider>
+   </div>
   )
 }
 
