@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react'
-import { auth } from '../firebase/firebase';
-import { signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { signOut, getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const auth = getAuth();
 
-  const navigate = useNavigate()
   return (
     <div>
       Home
-      <button onClick={()=>{
-            signOut(auth)
+      <button
+        onClick={() => {
+          auth
+            .signOut()
             .then(() => {
               console.log("sign out successful");
-              navigate('/login')
+              window.location.href = "/login";
             })
             .catch((error) => console.log(error));
-            
-      }} >Sign out!!</button>
+        }}
+      >
+        Sign out!!
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
