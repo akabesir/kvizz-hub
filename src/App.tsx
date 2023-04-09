@@ -1,8 +1,10 @@
 import React from "react";
 import { Routes, Route, Router } from "react-router-dom";
-import SignInSide from "./pages/Login";
-import SignUpSide from "./pages/Signup";
-import Home from "./pages/Home";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import SignInSide from "./pages/Login/Login";
+import SignUpSide from "./pages/Signup/Signup";
+import Home from "./pages/Home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 function App() {
@@ -10,6 +12,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
