@@ -10,7 +10,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }: any) {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ user: any } | null>(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
