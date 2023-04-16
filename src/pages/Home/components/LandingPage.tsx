@@ -6,10 +6,10 @@ import SideBar from "../../../components/Sidebar/SideBar";
 import GetStarted from "../../../components/GetStarted/GetStarted";
 import Work from "../../../components/Work/Work";
 import Contact from "../../../components/Contact/Contact";
-import Accordion from "../../../components/FAQ/Accordion";
+
 import Footer from "../../../components/Footer/Footer";
 import Review from "../../../components/Reviews/Review";
-import Newsletter from "../../../components/Newsletter/Newsletter";
+
 
 const LandingPage = () => {
   return (
