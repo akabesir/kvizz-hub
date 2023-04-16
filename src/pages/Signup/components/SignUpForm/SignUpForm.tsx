@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { Copyright } from "../../../../components/Copyright";
+import { Copyright } from "../../../../components/Copyright/Copyright";
 import GoogleSignUp from "../../services/GoogleSignup";
 import SignUpLogic from "../../services/SignUpLogic";
 
@@ -26,7 +26,7 @@ const SignUpForm = () => {
       component={Paper}
       elevation={6}
       square
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", backgroundColor:"#B0E0E6" }}
     >
       <Box
         sx={{
