@@ -7,7 +7,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SignInSide from "./pages/Login/Login";
 import SignUpSide from "./pages/Signup/Signup";
-import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const theme = createTheme();
