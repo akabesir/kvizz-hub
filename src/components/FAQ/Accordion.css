@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #30475c;
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2.5rem;
+}
+
+.accordian {
+  width: 90%;
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+.accordian-item {
+  background-color: white;
+  color: #111;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+.accordian-item-header {
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  min-height: 3.5rem;
+  line-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.accordian-item-header::after {
+  content: "\002B";
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  right: 1rem;
+  /* transition: all 0.2s ease; */
+}
+
+.accordian-item-header.active::after {
+  content: "\2212";
+}
+
+.accordian-item-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordian-item-body-content {
+  padding: 1rem;
+  line-height: 1.5;
+  border-top: 1px solid #34495e;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
