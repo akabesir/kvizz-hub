@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import GoogleIcon from "@mui/icons-material/Google";
 import LoginIcon from "@mui/icons-material/Login";
 import LogInLogic from "../../services/email-login";
-import { Copyright } from "../../../../components/Copyright";
+import { Copyright } from "../../../../components/Copyright/Copyright";
 import GoogleLogin from "../../services/google-login";
 
 const LoginForm = () => {
@@ -26,7 +26,7 @@ const LoginForm = () => {
       component={Paper}
       elevation={6}
       square
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", backgroundColor:"#B0E0E6"}}
     >
       <Box
         sx={{

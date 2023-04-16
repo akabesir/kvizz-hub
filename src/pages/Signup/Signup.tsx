@@ -4,10 +4,10 @@ import Grid from "@mui/material/Grid";
 
 import { useState } from "react";
 
-import PageIntro from "../../components/PageIntro";
+import PageIntro from "../../components/PageIntro/PageIntro";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 
-export default function SignInSide() {
+export default function SignUpSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };

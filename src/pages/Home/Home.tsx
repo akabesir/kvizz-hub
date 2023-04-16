@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
 import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
+import { CssBaseline } from "@mui/material";
+import Workspace from "./components/LandingPage";
 
 const Home = () => {
   const auth = getAuth();
 
   return (
     <div>
-      Home
-      <button
-        onClick={() => {
-          auth
-            .signOut()
-            .then(() => {
-              console.log("sign out successful");
-              window.location.href = "/login";
-            })
-            .catch((error) => console.log(error));
-        }}
-      >
-        Sign out!!
-      </button>
+      <CssBaseline />
+      <Navbar></Navbar>
+      <Workspace />
     </div>
   );
 };
