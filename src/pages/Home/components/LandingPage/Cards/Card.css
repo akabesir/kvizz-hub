@@ -94,6 +94,10 @@ a {
   color: white;
 }
 
+.card:hover{
+    scale: 1.05;
+}
+
 .card .date {
   position: absolute;
   top: 0;
