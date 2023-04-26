@@ -269,9 +269,7 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" color="inherit"></IconButton>
-            <IconButton size="large" color="inherit">
-              <MaterialUISwitch />
-            </IconButton>
+            
             <IconButton
               size="large"
               edge="end"

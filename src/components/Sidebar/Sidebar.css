@@ -17,11 +17,15 @@
     place-items: center;
   }
   
+
+  .icon{
+    font-weight: bold;
+  }
   /* Sidebar */
   .sidebar {
     background: #233554;
     color: white;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: auto;
   }
   
