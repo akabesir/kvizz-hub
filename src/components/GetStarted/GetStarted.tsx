@@ -29,9 +29,9 @@ const Hero = () => {
   }));
 
   return (
-    <Box sx={{ minHeight: "100vh", marginLeft: "7rem" }}>
-      <Container>
-        <CustomBox>
+    <Box sx={{ minHeight: "100vh", marginLeft: "5rem" }}>
+      <Container >
+        <CustomBox >
           <Box sx={{ flex: "1" }}>
             <Typography
               variant="body2"

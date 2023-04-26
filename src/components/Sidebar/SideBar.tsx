@@ -1,14 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
-import { MdMessage, MdOutlineContacts } from "react-icons/md";
-import { BiAnalyse, BiHelpCircle, BiLogOut, BiSearch } from "react-icons/bi";
+import { FaBars, FaHome, FaUser } from "react-icons/fa";
+import { MdOutlineContacts } from "react-icons/md";
+import { BiHelpCircle, BiLogOut, } from "react-icons/bi";
 import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
-import { BsCartCheck } from "react-icons/bs";
-import { useState } from "react";
-import { AnimatePresence, color, motion } from "framer-motion";
+import { AiFillHeart, } from "react-icons/ai";
 
-import "./Sidebar.css";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import './Sidebar.css'
 const routes = [
   {
     path: "/community",
@@ -36,7 +35,7 @@ const routes = [
   },
   {
     path: "/help",
-    name: "Help and Support",
+    name: "FAQ",
     icon: <BiHelpCircle />,
   },
   {
@@ -115,7 +114,7 @@ const SideBar = () => {
                   exit="hidden"
                   className="logo"
                 >
-                  DoSomeQuizzes
+                  MyWorkspace
                 </motion.h1>
               )}
             </AnimatePresence>

@@ -6,7 +6,7 @@ import { auth } from "../../../firebase/firebase";
 const GoogleSignUp = () => {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider).then(() => {
-    window.location.href = "/";
+    window.location.href = "/workspace";
   });
 };
 

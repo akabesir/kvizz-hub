@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../../firebase/firebase";
 
+
 const SignUpLogic = (e: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +11,7 @@ const SignUpLogic = (e: any) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
       console.log(userCredentials);
+      window.location.href = "/workspace";
     })
     .catch((error) => {
       console.log(error);
