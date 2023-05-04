@@ -9,6 +9,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LandingPage from "./pages/Home/components/LandingPage/LandingPage";
 import Workspace from "./pages/Home/components/LandingPage/Workspace/Workspace";
+import QuizForm from "./components/QuizForm/QuizForm";
+
 
 function App() {
   const theme = createTheme();
@@ -22,6 +24,7 @@ function App() {
             <Route path="/workspace" element={<Workspace />} />
             <Route path="/login" element={<SignInSide />} />
             <Route path="/signup" element={<SignUpSide />} />
+            <Route path="/newQuiz" element={<QuizForm/>}></Route>
           </Routes>
         </AuthProvider>
       </ThemeProvider>

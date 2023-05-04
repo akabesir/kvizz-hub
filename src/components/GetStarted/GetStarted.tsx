@@ -1,7 +1,7 @@
 import { Box, Button, styled, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
-import Navbar from "../Navbar/Navbar";
+
 import quizLanding from "../../assets/Question_1.mp4";
 import CustomButton from "../CustomButton/CustomButton";
 
@@ -45,7 +45,7 @@ const Hero = () => {
             >
               Let's Get Started!
             </Typography>
-            <Title variant="h1" sx={{ color: "#add8e6" }}>
+            <Title variant="h1" sx={{ color: "#add8e6"}}>
               Quiz Your Mind and Have Fun on KvizzHub!
             </Title>
             <Typography
@@ -59,9 +59,14 @@ const Hero = () => {
             <CustomButton
               backgroundColor="#0F1B4C"
               color="#fff"
-              buttonText="Get Quizzing!"
+              buttonText="Login"
               heroBtn={true}
-            />
+            /><CustomButton
+            backgroundColor="#FF3333"
+            color="#fff"
+            buttonText="Register"
+            heroBtn={true}
+          />
           </Box>
 
           <Box sx={{ flex: "1.25" }}>

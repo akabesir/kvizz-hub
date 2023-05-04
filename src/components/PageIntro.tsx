@@ -32,8 +32,8 @@ const PageIntro = () => {
           <Typography variant="h2" align="center" color="#cfd8dc">
             Welcome to KvizzHub!
           </Typography>
-          <div style={{ marginTop: "1rem" }}>
-            <Typography variant="h5" align="center" color="#b0bec5">
+          <div style={{ marginTop: "1rem", width:"80%" }}>
+            <Typography variant="h5" color="#b0bec5">
               KvizzHub is an innovative online platform that allows users to
               create and share interactive quizzes. Whether you want to test
               your knowledge or challenge others, KvizzHub offers user-friendly
@@ -41,7 +41,7 @@ const PageIntro = () => {
             </Typography>
             <Typography
               variant="h5"
-              align="center"
+            
               style={{ marginTop: "1rem", marginBottom: "1rem" }}
               color="#b0bec5"
             >
