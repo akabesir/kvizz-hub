@@ -26,7 +26,7 @@ const LoginForm = () => {
       component={Paper}
       elevation={6}
       square
-      sx={{ width: "100%", backgroundColor:"#B0E0E6"}}
+      sx={{ width: "100%"}}
     >
       <Box
         sx={{
