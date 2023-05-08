@@ -1,29 +1,62 @@
 import React, { useState } from "react";
-
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import {
-  TextField,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   FormLabel,
   IconButton,
-  Checkbox,
+  TextField,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const CheckboxChoice = ({
-  options,
+const CheckboxChoice = ({ questionType, question, index, questions, setQuestions }) => {
+  const [newOption, setNewOption] = useState("");
+  const [options, setOptions] = useState(
+    question.options || [{ label: "", checked: false }]
+  );
 
-  newOption,
+  const handleNewOptionChange = (event) => {
+    setNewOption(event.target.value);
+  };
 
-  questionType,
-  handleOptionChange,
-  handleNewOptionChange,
-  handleAddOption,
-  handleOptionLabelChange,
-  handleRemoveOption,
-}) => {
+  const handleAddOption = () => {
+    if (newOption.trim() === "") return;
+
+    const newOptions = [...options, { label: newOption, checked: false }];
+    setOptions(newOptions);
+    setNewOption("");
+  };
+
+  const handleRemoveOption = (optionIndex) => {
+    const newOptions = options.filter((option, index) => index !== optionIndex);
+    setOptions(newOptions);
+
+    const newQuestions = [...questions];
+    newQuestions[index].options = newOptions;
+    setQuestions(newQuestions);
+  };
+
+  const handleOptionChange = (optionIndex) => {
+    const newOptions = [...options];
+    newOptions[optionIndex].checked = !newOptions[optionIndex].checked;
+    setOptions(newOptions);
+
+    const newQuestions = [...questions];
+    newQuestions[index].options = newOptions;
+    setQuestions(newQuestions);
+  };
+
+  const handleOptionLabelChange = (event, optionIndex) => {
+    const newOptions = [...options];
+    newOptions[optionIndex].label = event.target.value;
+    setOptions(newOptions);
+
+    const newQuestions = [...questions];
+    newQuestions[index].options = newOptions;
+    setQuestions(newQuestions);
+  };
+
   return (
     <>
       {questionType === "checkbox" && (

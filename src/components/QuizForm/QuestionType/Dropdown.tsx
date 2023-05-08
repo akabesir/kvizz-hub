@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import {
   TextField,
   Select,
@@ -11,82 +8,142 @@ import {
   IconButton,
   InputLabel,
 } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const Dropdown = ({ questionType,  options, setOptions,questions, newOption,setNewOption, selectedOptionId,handleOptionChange, handleNewOptionChange,handleAddOption,handleOptionLabelChange,handleRemoveOption}) => {
- 
-  
+const Dropdown = ({
+  question,
+  index,
+  questions,
+  setQuestions,
+  questionType,
+}) => {
+  const [newOption, setNewOption] = useState("");
+  const [options, setOptions] = useState(question.options);
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
+  const handleNewOptionChange = (event) => {
+    setNewOption(event.target.value);
+  };
 
+  const handleAddOption = () => {
+    if (newOption) {
+      const newOptions = [...options, { label: newOption, checked: false }];
+      setOptions(newOptions);
+      updateQuestion(newOptions);
+      setNewOption("");
+    }
+  };
+
+  const handleOptionChange = (optionIndex) => {
+    const newOptions = options.map((option, index) => ({
+      ...option,
+      checked: index === optionIndex,
+    }));
+    setOptions(newOptions);
+    updateQuestion(newOptions);
+  };
+
+  const handleOptionLabelChange = (event, optionIndex) => {
+    const newOptions = options.map((option, index) => ({
+      ...option,
+      label: index === optionIndex ? event.target.value : option.label,
+    }));
+    setOptions(newOptions);
+    updateQuestion(newOptions);
+  };
+
+  const handleRemoveOption = (optionIndex) => {
+    const newOptions = options.filter((option, index) => index !== optionIndex);
+    setOptions(newOptions);
+    updateQuestion(newOptions);
+  };
+
+  const updateQuestion = (newOptions) => {
+    const newQuestions = [...questions];
+    newQuestions[index] = { ...question, options: newOptions };
+    setQuestions(newQuestions);
+  };
+
+  const handleOptionSelect = (event) => {
+    setSelectedOptionId(event.target.value);
+  };
   return (
     <>
-      {questions.map((question, index) => (
+      {questionType === "dropdown" && (
         <>
-          {questionType === "dropdown" && (
-            <>
-              <Typography variant="subtitle1">Select an Option</Typography>
-              <FormControl
-                variant="outlined"
-                fullWidth
-                style={{ marginBottom: "16px", width: "100%" }}
-              >
-                <InputLabel>Options</InputLabel>
-                <Select
-                  value={selectedOptionId}
-                  onChange={(e) => handleOptionChange(e.target.value)}
-                  label="Options"
-                >
-                  {options.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <Typography variant="subtitle1">Add an Option</Typography>
-
-              <TextField
-                label="Option Label"
-                variant="outlined"
-                required
-                value={newOption}
-                onChange={handleNewOptionChange}
-                type="text"
-              />
-              <IconButton onClick={handleAddOption}>
-                <AddCircleOutlineIcon />
-              </IconButton>
-
-              <Typography variant="subtitle1" sx={{ margin: "10px" }}>
-                Current Options
-              </Typography>
+          <Typography variant="subtitle1">{question.title}</Typography>
+          <FormControl
+            variant="outlined"
+            fullWidth
+            style={{ marginBottom: "16px", width: "100%" }}
+          >
+            <InputLabel>{question.placeholder}</InputLabel>
+            <Select value={selectedOptionId} label={question.placeholder} onChange={handleOptionSelect}>
               {options.map((option, index) => (
-                <div
+                <MenuItem
                   key={index}
-                  style={{ display: "flex", alignItems: "center" }}
+                  value={index}
+                 
                 >
-                  <TextField
-                    label="Option Label"
-                    variant="outlined"
-                    required
-                    value={option.label}
-                    onChange={(e) =>
-                      handleOptionLabelChange(e.target.value, index)
-                    }
-                    type="text"
-                    style={{ marginRight: "16px" }}
-                  />
-                  <IconButton
-                    aria-label="remove option"
-                    onClick={() => handleRemoveOption(index)}
-                  >
-                    <RemoveCircleOutlineIcon />
-                  </IconButton>
-                </div>
+                  {option.label}
+                </MenuItem>
               ))}
-            </>
-          )}
+            </Select>
+          </FormControl>
+
+          <Typography variant="subtitle1">{question.newOptionTitle}</Typography>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              sx={{
+                margin: "10px",
+                marginLeft: "2rem",
+              }}
+              value={newOption}
+              onChange={handleNewOptionChange}
+              label="New Option"
+            />
+            <IconButton
+              style={{ width: "64px", marginLeft: "10px" }}
+              onClick={() => handleAddOption()}
+            >
+              <AddCircleOutlineIcon />
+            </IconButton>
+          </div>
+
+          <Typography variant="subtitle1" sx={{ margin: "10px" }}>
+            {question.currentOptionsTitle}
+          </Typography>
+
+          {options.map((option, optionIndex) => (
+            <div
+              key={optionIndex}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <TextField
+                value={option.label}
+                onChange={(event) =>
+                  handleOptionLabelChange(event, optionIndex)
+                }
+                fullWidth
+              />
+              <IconButton
+                aria-label={question.removeOptionLabel}
+                onClick={() => handleRemoveOption(optionIndex)}
+                style={{ width: "64px" }}
+              >
+                <RemoveCircleOutlineIcon />
+              </IconButton>
+            </div>
+          ))}
         </>
-      ))}
+      )}
     </>
   );
 };
