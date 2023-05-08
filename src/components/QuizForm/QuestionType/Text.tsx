@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-const Text = ({questions,setQuestions,questionType}) => {
+const Text = ({question, index, questions, setQuestions,questionType}) => {
 
   return (
     <>
-      {questions.map((question, index) => (
-        <>
-        {questionType === "text" &&(
-            
+      {questionType === "text" && (
         <TextField
           label="Answer"
           variant="outlined"
@@ -31,9 +28,7 @@ const Text = ({questions,setQuestions,questionType}) => {
             },
           }}
         />
-        )}
-        </>
-      ))}
+      )}
     </>
   );
 };
