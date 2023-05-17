@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,10 +13,54 @@ import Typography from "@mui/material/Typography";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Copyright } from "../../../../components/Copyright/Copyright";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import GoogleSignUp from "../../services/GoogleSignup";
-import SignUpLogic from "../../services/SignUpLogic";
+import { auth } from "../../../../firebase/firebase";
+
 
 const SignUpForm = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const SignUpLogic = (e: any, email: string, password: string) => {
+    e.preventDefault();
+  
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        console.log(userCredentials);
+        window.location.href = "/workspace";
+      })
+      .catch((error) => {
+        setErrorMessage(error.message)
+
+        if (!firstName) {
+          setErrorMessage("Please enter your First Name!");
+          return;
+        }
+
+        if (firstName.length<2) {
+          setErrorMessage("Please enter your First Name!");
+          return;
+        }
+
+        if (lastName.length<2) {
+          setErrorMessage("Please enter your Last Name!");
+          return;
+        }
+
+        if (!lastName ) {
+          setErrorMessage("Please enter your Last Name!");
+          return;
+        }
+      });
+  };
+  
   return (
     <Grid
       item
@@ -54,6 +98,7 @@ const SignUpForm = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -64,6 +109,7 @@ const SignUpForm = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                onChange={(e) => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -74,6 +120,8 @@ const SignUpForm = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+      
               />
             </Grid>
             <Grid item xs={12}>
@@ -82,15 +130,23 @@ const SignUpForm = () => {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="new-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
+          
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            control={
+              <Checkbox
+                value={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+                color="primary"
+              />
+            }
+            label="Show Password"
           />
           <Button
             type="submit"
@@ -98,7 +154,7 @@ const SignUpForm = () => {
             variant="contained"
             startIcon={<LockOpenIcon />}
             sx={{ mt: 3, mb: 1 }}
-            onClick={SignUpLogic}
+            onClick={(e) => SignUpLogic(e, email, password)}
           >
             Sign Up with Form
           </Button>
@@ -113,6 +169,11 @@ const SignUpForm = () => {
           >
             Sign Up with Google
           </Button>
+          {errorMessage.length > 0 && (
+            <Typography component="p" variant="body1" sx={{ color: "red", margin:"0.3rem" }}>
+              {errorMessage}
+            </Typography>
+          )}
           <Grid container>
             <Grid item>
               <Link href="/login" variant="body2">

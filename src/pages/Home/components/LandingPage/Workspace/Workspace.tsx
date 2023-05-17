@@ -1,14 +1,15 @@
 import React from "react";
 
-import PrimarySearchAppBar from "../../../../../components/Navbar/Navbar";
+
 import QuizList from "./QuizList";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import ResponsiveAppBar from "../../../../../components/Navbar/NavbarUser";
 
 const Workspace = () => {
   return (
     <div style={{ backgroundColor: "#ccd6f6", minHeight: "100vh" }}>
-      <PrimarySearchAppBar />
+      <ResponsiveAppBar />
       <Link to="/newQuiz" style={{textDecoration:"none"}}>
       <Button
         variant="contained"

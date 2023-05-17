@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,11 +12,32 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import GoogleIcon from "@mui/icons-material/Google";
 import LoginIcon from "@mui/icons-material/Login";
-import LogInLogic from "../../services/email-login";
+
 import { Copyright } from "../../../../components/Copyright/Copyright";
 import GoogleLogin from "../../services/google-login";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../firebase/firebase";
 
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const emailLogin = (e: any) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "/workspace";
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
+
   return (
     <Grid
       item
@@ -26,7 +47,7 @@ const LoginForm = () => {
       component={Paper}
       elevation={6}
       square
-      sx={{ width: "100%"}}
+      sx={{ width: "100%" }}
     >
       <Box
         sx={{
@@ -43,7 +64,7 @@ const LoginForm = () => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={emailLogin}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -53,6 +74,8 @@ const LoginForm = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+      
               />
             </Grid>
             <Grid item xs={12}>
@@ -61,16 +84,23 @@ const LoginForm = () => {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="new-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
 
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            control={
+              <Checkbox
+                value={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+                color="primary"
+              />
+            }
+            label="Show Password"
           />
           <Button
             type="submit"
@@ -78,10 +108,15 @@ const LoginForm = () => {
             variant="contained"
             startIcon={<LoginIcon />}
             sx={{ mt: 3, mb: 1 }}
-            onClick={LogInLogic}
           >
             Sign In
           </Button>
+
+          {errorMessage.length > 0 && (
+            <Typography component="p" variant="body1" sx={{ color: "red", margin:"0.3rem" }}>
+              {errorMessage}
+            </Typography>
+          )}
 
           <Button
             fullWidth
@@ -93,12 +128,13 @@ const LoginForm = () => {
           >
             Sign In with Google
           </Button>
+          {errorMessage.length > 0 && (
+            <Typography component="p" variant="body1" sx={{ color: "red", margin:"0.3rem" }}>
+              {errorMessage}
+            </Typography>
+          )}
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+           
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}

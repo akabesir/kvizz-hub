@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-import PrimarySearchAppBar from "../Navbar/Navbar";
+
 import Box from "@mui/material/Box";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import Card from "@mui/material/Card";
 import html2canvas from "html2canvas/dist/html2canvas.min.js";
-
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 import { TextField, Button, Select, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Text from "./QuestionType/Text";
@@ -13,6 +15,8 @@ import CheckboxChoice from "./QuestionType/CheckboxChoice";
 import MultipleChoiceQuestion from "./QuestionType/MultipleChoiceQuestion";
 import TrueFalseChoice from "./QuestionType/TrueFalseChoice";
 import Dropdown from "./QuestionType/Dropdown";
+import ResponsiveAppBar from "../Navbar/NavbarUser";
+import { auth } from "../../firebase/firebase";
 
 const FormContainer = styled("form")({
   display: "flex",
@@ -23,11 +27,19 @@ const FormContainer = styled("form")({
   padding: "20px",
 });
 
-const SectionTitle = styled(Typography)({
-  marginTop: 10,
-  marginBottom: 10,
+const SectionTitle = styled(Typography)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
   fontWeight: "bold",
-});
+  "& input": {
+    fontWeight: "bold",
+    fontSize: "1.5rem",
+    lineHeight: "2rem",
+    border: "none",
+    borderBottom: `2px solid ${theme.palette.primary.main}`,
+    outline: "none",
+  },
+}));
 
 const SelectLabel = styled(Typography)({
   marginBottom: 8,
@@ -36,7 +48,13 @@ const SelectLabel = styled(Typography)({
 
 export const db = getFirestore();
 
+
 const QuizForm = () => {
+
+ 
+const currentUser = auth.currentUser;
+const uid = currentUser.uid;
+
   const [quizName, setQuizName] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
   const [quizImage, setQuizImage] = useState(null);
@@ -72,7 +90,7 @@ const QuizForm = () => {
     setQuestions([
       ...questions,
       {
-        id: questions.length + 1,
+        id: questions.length,
         question: "",
         answer: "",
         questionType: "text",
@@ -81,13 +99,16 @@ const QuizForm = () => {
     ]);
     setQuestionType([
       ...questionType,
-      { questionId: questions.length + 1, type: "text" },
+      { questionId: questions.length, type: "text" },
     ]);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if (quizName.trim() === "") {
+      alert("Please enter a quiz name");
+      return;
+    }
     try {
       const canvas = await html2canvas(
         document.querySelector("#quiz-card-container")
@@ -96,10 +117,12 @@ const QuizForm = () => {
 
       // Kreiranje novog dokumenta u kolekciji "quizzes"
       const quizRef = await addDoc(collection(db, "quizzes"), {
+
         name: quizName,
         description: quizDescription,
         createdAt: createdAt,
         quizImage: canvas.toDataURL("image/png"),
+        author_id: uid
       });
 
       // Dodavanje svakog pitanja u podkolekciju "questions" za novi kviz
@@ -132,24 +155,21 @@ const QuizForm = () => {
   return (
     <div id="quiz-card-container">
       <Box sx={{ backgroundColor: "rgb(238, 242, 246)", minHeight: "100vh" }}>
-        <PrimarySearchAppBar />
+        <ResponsiveAppBar />
         <Box display="flex" justifyContent="center" marginTop="20px">
           <Card sx={{ minWidth: "750px" }}>
             <FormContainer onSubmit={handleSubmit}>
-              <SectionTitle variant="h4">Create New Quiz</SectionTitle>
-              <TextField
-                label="Quiz Name"
-                variant="outlined"
-                required
-                value={quizName}
-                onChange={handleQuizNameChange}
-                defaultValue={questions.length > 0 ? questions[0].question : ""}
-                style={{
-                  marginBottom: "16px",
-                  width: "65%",
-                  maxWidth: "750px",
-                }}
-              />
+            <SectionTitle >
+               
+                <input
+                  type="text"
+                  style={{textAlign:"center"}}
+                  placeholder="Enter Quiz Name!"
+                  value={quizName}
+                  onChange={handleQuizNameChange}
+                  required
+                />
+              </SectionTitle>
               <TextField
                 label="Quiz Description"
                 variant="outlined"

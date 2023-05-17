@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/components/QuizForm/QuizReviews.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1684339721000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1684339768717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import React from 'react'\r\n \r\n const QuizReviews = () => {\r\n   return (\r\n-    <div>\r\n-      \r\n-    </div>\r\n+    <>\r\n+    \r\n+    </>\r\n   )\r\n }\r\n \r\n export default QuizReviews\r\n"
+                },
+                {
+                    "date": 1684339777067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,11 @@\n                     bottom: 0,\r\n                   }}\r\n                 >\r\n                   <Card sx={{ minWidth: \"750px\", maxWidth: \"900px\" }}>\r\n-                    \r\n+\r\n                   </Card>\r\n+                  </Box>\r\n     </>\r\n   )\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1684341321603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n   const ReviewContainer = styled(Box)({\r\n     display: \"flex\",\r\n     justifyContent: \"center\",\r\n     alignItems: \"center\",\r\n-    height: \"100vh\",\r\n+    height: \"0vh\",\r\n     background: \"#f0f0f0\",\r\n     padding: \"1rem\",\r\n   });\r\n \r\n"
+                }
+            ],
+            "date": 1684339721000,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nconst QuizReviews = () => {\r\n  return (\r\n    <div>\r\n      \r\n    </div>\r\n  )\r\n}\r\n\r\nexport default QuizReviews\r\n"
+        }
+    ]
+}

@@ -4,9 +4,8 @@ import { useState } from "react";
 import { auth } from "../../../firebase/firebase";
 
 
-const SignUpLogic = (e: any) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignUpLogic = (e: any, email: string, password: string) => {
+  e.preventDefault();
 
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {

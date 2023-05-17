@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Card,
@@ -10,9 +9,21 @@ import {
   Typography,
   Button,
   Divider,
+  TextField,
+  Dialog,
 } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
+import EditIcon from "@mui/icons-material/Edit";
+import { Link, useParams } from "react-router-dom";
+import EditQuiz from "../../../../../components/QuizForm/EditQuiz";
+import ShareIcon from "@mui/icons-material/Share";
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const QuizCard = ({
   quizName,
   quizDescription,
@@ -22,6 +33,15 @@ const QuizCard = ({
   onEdit,
   quizId,
 }) => {
+  const [open, setOpen] = useState(false);
+  const [link, setLink] = useState("");
+
+  const handleShare = () => {
+    setOpen(true);
+    setLink(`localhost:3000/quiz/${quizId}`);
+ 
+  };
+
   const handleDelete = () => {
     onDelete(quizId);
   };
@@ -29,6 +49,8 @@ const QuizCard = ({
   const handleEditClick = () => {
     onEdit(quizId);
   };
+
+ 
 
   return (
     <>
@@ -56,10 +78,13 @@ const QuizCard = ({
               height="200"
               image={quizImage}
               alt={quizDescription}
-              sx={{ objectFit: "cover", maxHeight:200 }}
-              
+              sx={{ objectFit: "cover", maxHeight: 200 }}
+              onClick={() => onEdit(quizId)}
             />
-            <CardContent sx={{ padding: "16px 24px" }}>
+            <CardContent
+              sx={{ padding: "16px 24px" }}
+              onClick={() => onEdit(quizId)}
+            >
               <Typography
                 variant="h5"
                 component="h2"
@@ -83,18 +108,42 @@ const QuizCard = ({
           <CardActions
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
               padding: "16px 24px",
             }}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={handleEditClick}
+            <IconButton
+              sx={{ color: "#1976d2", "&:hover": { color: "navy" } }}
+              onClick={() => onEdit(quizId)}
             >
-              EDIT
-            </Button>
+              <EditIcon sx={{ fontSize: "1.8rem" }} />
+            </IconButton>
+
+            <IconButton
+              sx={{ color: "#00bcd4", "&:hover": { color: "green" } }}
+              onClick={handleShare}
+            >
+              <ShareIcon sx={{ fontSize: "1.8rem" }} />
+            </IconButton>
+
+            <Dialog open={open} onClose={() => setOpen(false)}>
+              <Box sx={{ p: 2, display: "flex", alignItems: "center" }}>
+                <TextField value={link} sx={{ mr: 2 }} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<FileCopyIcon />}
+                  onClick={() => {
+                    navigator.clipboard.writeText(link)
+                    toast.success("Link copied to clipboard");
+                    
+                }  }
+                >
+                  Copy
+                </Button>
+             
+              </Box>
+            </Dialog>
             <IconButton
               sx={{ color: "red", "&:hover": { color: "darkred" } }}
               aria-label="delete"
