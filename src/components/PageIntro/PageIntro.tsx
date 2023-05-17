@@ -30,11 +30,11 @@ const PageIntro = () => {
             textAlign: "center",
           }}
         >
-          <Typography variant="h2" align="center" color="#cfd8dc">
-            Get Quizzing & Have Fun!
+          <Typography variant="h3" align="center" color="#cfd8dc">
+            Get Quizzing and Have Fun!
           </Typography>
-          <div style={{ marginTop: "1rem" }}>
-            <Typography variant="h5" align="center" color="#b0bec5">
+          <div style={{ marginTop: "1rem", }}>
+            <Typography variant="h5" align="left" color="#b0bec5" style={{ marginTop: "1rem", marginBottom: "1rem", marginLeft:"5%", marginRight:"5%" }}>
               KvizzHub is an innovative online platform that allows users to
               create and share interactive quizzes. Whether you want to test
               your knowledge or challenge others, KvizzHub offers user-friendly
@@ -42,8 +42,8 @@ const PageIntro = () => {
             </Typography>
             <Typography
               variant="h5"
-              align="center"
-              style={{ marginTop: "1rem", marginBottom: "1rem" }}
+              align="left"
+              style={{ marginTop: "1rem", marginBottom: "1rem", marginLeft:"5%", marginRight:"5%" }}
               color="#b0bec5"
             >
               With a wide range of quiz topics and customizable options,

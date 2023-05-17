@@ -6,6 +6,15 @@ import quizLanding from "../../assets/Question_1.mp4";
 import CustomButton from "../CustomButton/CustomButton";
 
 const Hero = () => {
+
+  const handleLogin = () => {
+    window.location.href = '/login';
+  };
+  
+  const handleRegister = () => {
+    window.location.href = '/signup';
+  };
+  
   const CustomBox = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
@@ -61,11 +70,14 @@ const Hero = () => {
               color="#fff"
               buttonText="Login"
               heroBtn={true}
-            /><CustomButton
+              onClick={handleLogin}
+            />
+            <CustomButton
             backgroundColor="#FF3333"
             color="#fff"
             buttonText="Register"
             heroBtn={true}
+            onClick={handleRegister}
           />
           </Box>
 
